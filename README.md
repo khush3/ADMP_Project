@@ -3,8 +3,4 @@ Course Project for ADVANCED MICROPROCESSOR AND INTERFACING
 (ECP 426)
 
 ## Results
-### Q-1  
-
-### Q-2
-
-### Q-3
+Video can be found here: [[link]](https://drive.google.com/drive/folders/1UetFogz10TmM6a-GZLYRpMlOw79XCLox)
