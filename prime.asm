@@ -1,0 +1,65 @@
+ASSUME SS:STACK, DS:DATA, CS:CODE    
+
+DATA SEGMENT
+	LUT DB 03H,09H,05H,01H,00H,02H,08H,06H,04H,0AH
+DATA ENDS
+ 
+STACK SEGMENT
+	STACKDATA DB 100 DUP(?)
+STACK ENDS
+
+CODE SEGMENT
+START:
+	MOV AX, DATA
+	MOV DS, AX
+	LEA SI, LUT
+	MOV BH, 0AH
+	MOV BL, 00H
+	MOV CX, 0000H
+	MOV DX, 0000H
+    
+	ARRAY_LOOP:
+    	CALL FIND_PRIME
+    	ADD DX, CX
+    	INC SI
+    	DEC BH
+    	JNZ ARRAY_LOOP
+    	JMP END
+    
+	FIND_PRIME PROC NEAR
+    	MOV AL, [SI]
+    	MOV AH, 00H
+    	CMP AL, 00H
+    	JZ SKIP2
+    	CMP AL,01H
+    	JZ SKIP2
+    	MOV BL, 02H
+    	MOV CL, AL
+    	CMP CL,BL
+    	JZ SKIP1
+   	 
+    	AGAIN:
+        	DIV BL
+        	CMP AH, 00H
+        	JZ SKIP2
+        	INC BL
+        	MOV AX,0000H
+        	MOV AL,[SI]
+        	CMP BL,AL
+        	JNZ AGAIN
+    	SKIP1:
+        	RET
+        	ENDP
+    
+    	SKIP2:
+        	MOV CX,0000H
+        	RET
+        	ENDP
+   
+   	 
+END:
+	MOV AH,4CH
+	INT 21H
+	CODE ENDS
+	END START
+
